@@ -10,8 +10,8 @@ pcl_grid_map_extraction:
       p: 0.0
       y: 0.0
   cluster_extraction:
-    cluster_tolerance: 0.2
-    min_num_points: 2
+    cluster_tolerance: 0.1
+    min_num_points: 1
     max_num_points: 1000000
     use_max_height_as_cell_elevation: false
   outlier_removal:
@@ -21,12 +21,12 @@ pcl_grid_map_extraction:
   downsampling:
     is_downsample_cloud: false
     voxel_size:
-      x: 0.02
-      y: 0.02
-      z: 0.02 
+      x: 0.1
+      y: 0.1
+      z: 0.1
   grid_map:
-    min_num_points_per_cell: 2
-    resolution: 0.1
+    min_num_points_per_cell: 1
+    resolution: 0.2
 
     
        
