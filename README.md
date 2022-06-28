@@ -108,6 +108,7 @@ This repository consists of following packages:
 * ***grid_map_filters*** builds on the [ROS Filters] package to process grid maps as a sequence of filters.
 * ***grid_map_msgs*** holds the [ROS] message and service definitions around the [grid_map_msg/GridMap] message type.
 * ***grid_map_rviz_plugin*** is an [RViz] plugin to visualize grid maps as 3d surface plots (height maps).
+* ***grid_map_sdf*** provides an algorithm to convert an elevation map into a 3D signed distance field.
 * ***grid_map_visualization*** contains a node written to convert GridMap messages to other [ROS] message types for example for  visualization in [RViz].
 
 Additional conversion packages:
@@ -258,11 +259,21 @@ Beware that while iterators are convenient, it is often the cleanest and most ef
 
 There are two different methods to change the position of the map:
 * `setPosition(...)`: Changes the position of the map without changing data stored in the map. This changes the corresponce between the data and the map frame.
-* `move(...)`: Relocates the grid map such that the corresponce between data and the map frame does not change. Data in the overlapping region before and after the position change remains stored. Data that falls outside of the map at its new position is discarded. Cells that cover previously unknown regions are emptied (set to nan). The data storage is implemented as two-dimensional circular buffer to minimize computational effort.
+* `move(...)`:
+ Relocates the region captured by grid map w.r.t. to the static grid map frame. Use this to move the grid map boundaries
+ without relocating the grid map data. Takes care of all the data handling, such that the grid map data is stationary in the grid map
+ frame.
+  - Data in the overlapping region before and after the position change remains stored.
+  - Data that falls outside the map at its new position is discarded.
+  - Cells that cover previously unknown regions are emptied (set to nan).
+  The data storage is implemented as two-dimensional circular buffer to minimize computational effort.
+ 
+   **Note**: Due to the circular buffer structure, neighbouring indices might not fall close in the map frame.
+   This assumption only holds for indices obtained by getUnwrappedIndex().
 
-`setPosition(...)` | `move(...)`
-:---: | :---:
-![Grid map iterator](grid_map_core/doc/setposition_method.gif) | ![Submap iterator](grid_map_core/doc/move_method.gif)|
+  `setPosition(...)` | `move(...)`
+  :---: | :---:
+  ![Grid map iterator](grid_map_core/doc/setposition_method.gif) | ![Submap iterator](grid_map_core/doc/move_method.gif)|
 
 
 ## Packages
@@ -273,6 +284,11 @@ This [RViz] plugin visualizes a grid map layer as 3d surface plot (height map). 
 
 ![Grid map visualization in RViz](grid_map_rviz_plugin/doc/grid_map_rviz_plugin.png)
 
+### grid_map_sdf
+
+This package provides an efficient algorithm to convert an elevation map into a dense 3D signed distance field. Each point in the 3D grid contains the distance to the closest point in the map together with the gradient.  
+
+![ANYmal SDF demo](grid_map_sdf/doc/anymal_sdf_demo.gif)
 
 ### grid_map_visualization
 

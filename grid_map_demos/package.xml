@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>grid_map_demos</name>
-  <version>1.6.7</version>
+  <version>1.7.0</version>
   <description>Demo nodes to demonstrate the usage of the grid map library.</description>
   <maintainer email="mwulf@anybotics.com">Maximilian Wulf</maintainer>
   <maintainer email="ynava@anybotics.com">Yoshua Nava</maintainer>
@@ -13,13 +13,14 @@
 <!--   <build_depend>cmake_clang_tools</build_depend> -->
   <depend>roscpp</depend>
   <depend>grid_map_core</depend>
-  <depend>grid_map_ros</depend>
   <depend>grid_map_cv</depend>
   <depend>grid_map_filters</depend>
   <depend>grid_map_loader</depend>
   <depend>grid_map_msgs</depend>
   <depend>grid_map_octomap</depend>
+  <depend>grid_map_ros</depend>
   <depend>grid_map_rviz_plugin</depend>
+  <depend>grid_map_sdf</depend>
   <depend>grid_map_visualization</depend>
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
